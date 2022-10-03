@@ -1,0 +1,43 @@
+.header {
+    padding-top: 20px !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &__logo {
+        width: 350px;
+    }
+}
+.search-block {
+    display: flex;
+    &__btn {
+        margin-left: 20px;
+    }
+    &__input {
+        padding: 10px;
+        transition: all 0.3s;
+        &:focus {
+            outline: none;
+            padding-right: 50px;
+        }
+    }
+}
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        &__logo {
+            width: 100%;
+        }
+    }
+}
+
+@media (max-width: 575px) {
+    .search-block {
+        padding-top: 10px;
+        &__input {
+            width: 100%;
+            &:focus {
+                padding-right: 10px;
+            }
+        }
+    }
+}

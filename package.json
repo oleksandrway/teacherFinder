@@ -1,0 +1,20 @@
+{
+  "name": "teacherfinder",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@gitart/eslint-config-basic": "^0.2.0",
+    "eslint": "^8.24.0",
+    "js-event-bus": "^1.1.1",
+    "sass": "^1.55.0",
+    "vite": "^3.1.0",
+    "vite-plugin-windicss": "^1.8.8",
+    "windicss": "^3.5.6"
+  }
+}

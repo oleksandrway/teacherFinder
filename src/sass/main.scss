@@ -1,0 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap");
+// @import 'bootstrap/dist/css/bootstrap-reboot.css';
+
+@import "./common/variables";
+@import "./common/reuse-parts";
+
+@import "./base/add-teacher";
+@import "./base/teacher-info";
+@import "./base/config";
+@import "./base/loaders";
+
+@import "parts/header";
+@import "parts/navigation";
+@import "parts/top-teachers";
+@import "parts/statistics";
+@import "parts/favorites";
+@import "parts/footer";
+
+@import "base/modal";
+@import "base/teacher-info";
