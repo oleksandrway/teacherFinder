@@ -2,22 +2,29 @@ import EventBus from 'js-event-bus'
 import { createELement } from '@/js/helpers/createElement'
 
 class View {
-  constructor({ teachersContainer, teachersListSelector, filterSelectors }) {
+  constructor({ teachersContainer, teachersListSelector, filtersInputselectors }) {
     this.teachersContainer = document.querySelector(teachersContainer)
     this.teachersList = document.querySelector(teachersListSelector)
     this.hooks = new EventBus()
     // this.filterForm = document.querySelector(filterFormSelector)
 
-    this.filters = filterSelectors.map(selector => document.querySelector(selector))
+    this.filtersInputs = filtersInputselectors.map(selector => document.querySelector(selector))
 
-    this.addFilterListeners(this.filters)
+    this.addFilterListeners(this.filtersInputs)
   }
 
-  addFilterListeners(filters) {
-    filters.forEach((filter) => {
-      filter.addEventListener('change', () => {
-        this.hooks.emit('filterChanged', null, { filterName: filter.name, filterValue: filter.value })
-      })
+  addFilterListeners(filtersInputs) {
+    filtersInputs.forEach((filter) => {
+      if (filter.type === 'checkbox') {
+        filter.addEventListener('change', () => {
+          this.hooks.emit('filterChanged', null, { filterName: filter.name, filterValue: filter.checked })
+        })
+      }
+      else {
+        filter.addEventListener('change', () => {
+          this.hooks.emit('filterChanged', null, { filterName: filter.name, filterValue: filter.value })
+        })
+      }
     })
   }
   // formInit(form ) {

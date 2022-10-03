@@ -528,7 +528,7 @@ const users = [
       },
       city: 'Bolu',
       state: 'Ardahan',
-      country: 'Turkey',
+      country: 'Afganistan',
       postcode: 12234,
       coordinates: {
         latitude: '-42.0389',
