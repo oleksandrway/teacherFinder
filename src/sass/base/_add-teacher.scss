@@ -1,8 +1,25 @@
 .modal-add-teacher {
     display: flex;
     flex-direction: column;
-    &--margin-30 {
-        margin: 50px 0;
+    max-width: 600px;
+}
+
+.modal-add-teacher-header {
+    color: #fff;
+    font-size: 20px;
+    background-color: grey;
+    padding: 10px 20px;
+}
+
+.defaultModal .modal__close {
+    top: 5px;
+
+    span {
+        background-color: #fff;
+    }
+
+    &:hover {
+        background-color: rgba(red, 0.4);
     }
 }
 
@@ -19,7 +36,6 @@
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-
     }
     &__item-sizing {
         position: relative;
@@ -41,13 +57,13 @@
         width: 100%;
         padding: 5px;
     }
-    
+
     &__submit-btn {
         margin-top: 10px;
         width: 100%;
     }
 }
-@media(max-width: 575px) {
+@media (max-width: 575px) {
     .add-teacher {
         &__direction-label {
             margin-right: 10px;

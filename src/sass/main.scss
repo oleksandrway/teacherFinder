@@ -8,6 +8,7 @@
 @import "./base/teacher-info";
 @import "./base/config";
 @import "./base/loaders";
+@import "base/teacher-info";
 
 @import "parts/header";
 @import "parts/navigation";
@@ -15,6 +16,3 @@
 @import "parts/statistics";
 @import "parts/favorites";
 @import "parts/footer";
-
-@import "base/modal";
-@import "base/teacher-info";

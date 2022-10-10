@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="./public/favicon.svg" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>teacherFinder</title>
 </head>
@@ -27,7 +27,7 @@
         <a class="nav-links__item">Favorite</a>
         <a class="nav-links__item">About</a>
       </nav>
-      <button class="btn btns-wrapper__btn btn--md-sizing">Add teacher</button>
+      <button class="btn btns-wrapper__btn btn--md-sizing open-modal-btn">Add teacher</button>
     </div>
     <div class="divider"></div>
   </section>
@@ -45,7 +45,6 @@
           <option value="50-80">50-80</option>
         </select>
       </div>
-
       <div class="filter-block__item">
         <label class="filter-block__label" for="region">Region</label>
         <select data-id="filtering" class="filter-block__select" name="country" id="region">
@@ -467,23 +466,23 @@
         <a class="nav-links__item">Favorite</a>
         <a class="nav-links__item">About</a>
       </nav>
-      <button class="btn btns-wrapper__btn btn--md-sizing">Add teacher</button>
+      <button class="btn btns-wrapper__btn btn--md-sizing  open-modal-btn">Add teacher</button>
     </div>
   </footer>
-  <div style="display: none;" class="hidden">
-    <div class="modal-add-teacher modal-add-teacher--margin-30">
-      <div class="modal-header">
-        <div class="modal-header__title">Add teacher</div>
+  <div class="hidden">
+    <div class="modal-add-teacher ">
+      <div class="modal-add-teacher-header">
+        <div class="modal-add-teacher__title">Add teacher</div>
       </div>
 
-      <form id="add-teacher" class="add-teacher" name="addTeacher">
+      <form id="add-teacher" class="add-teacher" onSubmit=" return false" name="addTeacher">
 
-        <div class="add-teacher__item">
+        <div class="add-teacher__item form__item">
           <label for="name" class="add-teacher__label">Name</label>
           <input type="text" id="name" name="full_name" class="add-teacher__input" placeholder="Name">
         </div>
 
-        <div class="add-teacher__item">
+        <div class="add-teacher__item form__item">
           <label for="speciality" class="add-teacher__label">Speciality</label>
           <select class="add-teacher__input" id="speciality" name="course">
             <option value="mathematics">Mathematics</option>
@@ -501,7 +500,7 @@
           </select>
         </div>
 
-        <div class="add-teacher__item add-teacher__item-sizing">
+        <div class="add-teacher__item form__item add-teacher__item-sizing">
           <label for="country" class="add-teacher__label">County</label>
           <select class="add-teacher__input" id="country" name="country">
             <option value="Afganistan">Afghanistan</option>
@@ -753,27 +752,27 @@
           </select>
         </div>
 
-        <div class="add-teacher__item add-teacher__item-sizing">
+        <div class="add-teacher__item form__item add-teacher__item-sizing">
           <label for="city" class="add-teacher__label">City</label>
           <input type="text" id="city" name="city" class="add-teacher__input">
         </div>
 
-        <div class="add-teacher__item add-teacher__item-sizing">
+        <div class="add-teacher__item form__item add-teacher__item-sizing">
           <label for="email" class="add-teacher__label">Email</label>
           <input type="email" id="email" name="email" class="add-teacher__input">
         </div>
 
-        <div class="add-teacher__item add-teacher__item-sizing">
+        <div class="add-teacher__item form__item add-teacher__item-sizing">
           <label for="phone" class="add-teacher__label">Phone</label>
           <input type="tel" name="phone" id="phone" class="add-teacher__input">
         </div>
 
-        <div class="add-teacher__item add-teacher__item-sizing">
+        <div class="add-teacher__item form__item add-teacher__item-sizing">
           <label for="b_date" class="add-teacher__label">Birthday</label>
           <input type="date" name="b_date" id="b_date" class="add-teacher__input">
         </div>
 
-        <div class="add-teacher__item add-teacher__item-sizing">
+        <div class="add-teacher__item form__item add-teacher__item-sizing">
           <label for="gender" class="add-teacher__label">Gender</label>
           <select class="add-teacher__input" id="gender" name="gender">
             <option value="male">Male</option>
@@ -781,19 +780,19 @@
           </select>
         </div>
 
-        <div class="add-teacher__item add-teacher__item-direction">
+        <div class="add-teacher__item form__item add-teacher__item-direction"> // here shoud be a photo input
           <label class="add-teacher__label add-teacher__direction-label" for="color">Background color</label>
           <input id="color" name="bg_color" type="color">
         </div>
 
-        <div class="add-teacher__item add-teacher__item-direction">
+        <div class="add-teacher__item form__item add-teacher__item-direction">
           <label class="add-teacher__label add-teacher__direction-label" for="favorite">Favorite</label>
           <input id="isfavorite" name="favorite" type="checkbox">
         </div>
 
         <div class="add-teacher__item">
           <label class="add-teacher__label " for="notes">Notes (optional)</label>
-          <textarea class="add-teacher__input" name="note" id="notes" rows="3"></textarea>
+          <textarea class="add-teacher__input" name="notes" id="notes" rows="3"></textarea>
         </div>
 
         <button class="btn btn--md-sizing add-teacher__submit-btn">Add</button>

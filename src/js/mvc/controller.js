@@ -9,12 +9,15 @@ class Controller {
     this.view.hooks.on('filterChanged', ({ filterName, filterValue }) => {
       if (!filterValue)
         delete this.filters[filterName]
-
       else
         this.filters[filterName] = filterValue
 
       console.log(this.filters)
       this.renderFilteredTeachers(this.filters)
+    })
+
+    this.view.hooks.on('newTeacherAdded', (newTeacher) => {
+      console.log('newTeacher', newTeacher)
     })
 
     this.renderStoredTeachers()
