@@ -34,7 +34,10 @@
 
   <section class="top-teachers container">
     <div class="title">Top Teachers</div>
-
+    <div class="favorite-quantity  ">
+      <div class="favorite-quantity__title">quantity of favorite teachers</div>
+      <button class="btn favorite-quantity__btn">clear favorites</button>
+    </div>
     <form name="filtering" class="filter-block top-teachers__filter">
       <div class="filter-block__item">
         <label class="filter-block__label" for="age-range">Age</label>
@@ -317,10 +320,7 @@
         <label class="filter-block__label filter-block__label-sizing" for="favorites">Only favorites</label>
       </div>
     </form>
-    <div class="favorite-quantity  ">
-      <div class="favorite-quantity__title">quantity of favorite teachers</div>
-      <button class="btn favorite-quantity__btn">clear favorites</button>
-    </div>
+
     <ul id="top-teachers-list" class="teachers-list top-teachers__list">
       <!-- <li class="teacher-item teachers-list__item">
         <img src="/favicon.svg" alt="avatar" class="teacher-item__img">
@@ -328,52 +328,8 @@
         <div class="teacher-item__job">Chemistry</div>
         <div class="teacher-item__location">Ukraine</div>
       </li> -->
-      <!-- 
-      <li class="teacher-item teachers-list__item">
-        <img src="images/avatar.jpg" alt="avatar" class="teacher-item__img">
-        <div class="teacher-item__name">Ihor <br> Tkachuk</div>
-        <div class="teacher-item__job">Chemistry</div>
-        <div class="teacher-item__location">Ukraine</div>
-      </li>
-      <li class="teacher-item teachers-list__item">
-        <img src="images/avatar.jpg" alt="avatar" class="teacher-item__img">
-        <div class="teacher-item__name">Ihor <br> Tkachuk</div>
-        <div class="teacher-item__job">Chemistry</div>
-        <div class="teacher-item__location">Ukraine</div>
-      </li>
-      <li class="teacher-item teachers-list__item">
-        <div class="teacher-item__favorite"></div>
-        <img src="images/avatar.jpg" alt="avatar" class="teacher-item__img">
-        <div class="teacher-item__name">Ihor <br> Tkachuk</div>
-        <div class="teacher-item__job">Chemistry</div>
-        <div class="teacher-item__location">Ukraine</div>
-      </li>
-      <li class="teacher-item teachers-list__item">
-        <div class="teacher-item__favorite"></div>
-        <img src="images/avatar.jpg" alt="avatar" class="teacher-item__img">
-        <div class="teacher-item__name">Ihor <br> Tkachuk</div>
-        <div class="teacher-item__job">Chemistry</div>
-        <div class="teacher-item__location">Ukraine</div>
-      </li>
-      <li class="teacher-item teachers-list__item">
-        <div class="teacher-item__favorite"></div>
-        <img src="images/avatar.jpg" alt="avatar" class="teacher-item__img">
-        <div class="teacher-item__name">Ihor <br> Tkachuk</div>
-        <div class="teacher-item__job">Chemistry</div>
-        <div class="teacher-item__location">Ukraine</div>
-      </li>
-      <li class="teacher-item teachers-list__item">
-        <div class="teacher-item__non-img">I.T</div>
-        <div class="teacher-item__name">Ihor <br> Tkachuk</div>
-        <div class="teacher-item__job">Chemistry</div>
-        <div class="teacher-item__location">Ukraine</div>
-      </li>
-      <li class="teacher-item teachers-list__item">
-        <div class="teacher-item__non-img">I.T</div>
-        <div class="teacher-item__name">Ihor <br> Tkachuk</div>
-        <div class="teacher-item__job">Chemistry</div>
-        <div class="teacher-item__location">Ukraine</div>
-      </li> -->
+
+
     </ul>
     <div class="divider"></div>
   </section>
@@ -405,43 +361,8 @@
           <img src="images/avatar.jpg" alt="avatar" class="teacher-item__img">
           <div class="teacher-item__name">Ihor <br> Tkachuk</div>
           <div class="teacher-item__location">Ukraine</div>
-        </li>
-        <li class="teacher-item favorites__item">
-          <img src="images/avatar.jpg" alt="avatar" class="teacher-item__img">
-          <div class="teacher-item__name">Ihor <br> Tkachuk</div>
-          <div class="teacher-item__location">Ukraine</div>
-        </li>
-        <li class="teacher-item favorites__item">
-          <img src="images/avatar.jpg" alt="avatar" class="teacher-item__img">
-          <div class="teacher-item__name">Ihor <br> Tkachuk</div>
-          <div class="teacher-item__location">Ukraine</div>
-        </li>
-        <li class="teacher-item favorites__item">
-          <img src="images/avatar.jpg" alt="avatar" class="teacher-item__img">
-          <div class="teacher-item__name">Ihor <br> Tkachuk</div>
-          <div class="teacher-item__location">Ukraine</div>
-        </li>
-        <li class="teacher-item favorites__item">
-          <img src="images/avatar.jpg" alt="avatar" class="teacher-item__img">
-          <div class="teacher-item__name">Ihor <br> Tkachuk</div>
-          <div class="teacher-item__location">Ukraine</div>
         </li> -->
-      <!-- <li class="teacher-item favorites__item">
-          <div class="teacher-item__favorite"></div>
-          <img src="images/avatar.jpg" alt="avatar" class="teacher-item__img">
-          <div class="teacher-item__name">Ihor <br> Tkachuk</div>
-          <div class="teacher-item__location">Ukraine</div>
-        </li>
-        <li class="teacher-item favorites__item">
-          <div class="teacher-item__non-img">I.T</div>
-          <div class="teacher-item__name">Ihor <br> Tkachuk</div>
-          <div class="teacher-item__location">Ukraine</div>
-        </li>
-        <li class="teacher-item favorites__item">
-          <div class="teacher-item__non-img">I.T</div>
-          <div class="teacher-item__name">Ihor <br> Tkachuk</div>
-          <div class="teacher-item__location">Ukraine</div>
-      </li> -->
+
     </ul>
     <div class="divider"></div>
   </section>
@@ -466,12 +387,12 @@
         <a class="nav-links__item">Favorite</a>
         <a class="nav-links__item">About</a>
       </nav>
-      <button class="btn btns-wrapper__btn btn--md-sizing  open-modal-btn">Add teacher</button>
+      <!-- <button class="btn btns-wrapper__btn btn--md-sizing  open-modal-btn">Add teacher</button> -->
     </div>
   </footer>
   <div class="hidden">
     <div class="modal-add-teacher ">
-      <div class="modal-add-teacher-header">
+      <div class="modal-header">
         <div class="modal-add-teacher__title">Add teacher</div>
       </div>
 
@@ -479,7 +400,12 @@
 
         <div class="add-teacher__item form__item">
           <label for="name" class="add-teacher__label">Name</label>
-          <input type="text" id="name" name="full_name" class="add-teacher__input" placeholder="Name">
+          <input type="text" id="name" name="firstName" class="add-teacher__input" value="oleksandr" placeholder="Name">
+        </div>
+        <div class="add-teacher__item form__item">
+          <label for="name" class="add-teacher__label">Last name</label>
+          <input type="text" id="name" name="lastName" class="add-teacher__input" value="kryvoruchko"
+            placeholder="Last name">
         </div>
 
         <div class="add-teacher__item form__item">
@@ -754,22 +680,27 @@
 
         <div class="add-teacher__item form__item add-teacher__item-sizing">
           <label for="city" class="add-teacher__label">City</label>
-          <input type="text" id="city" name="city" class="add-teacher__input">
+          <input type="text" id="city" name="city" value="Lutsk" class="add-teacher__input">
         </div>
 
         <div class="add-teacher__item form__item add-teacher__item-sizing">
           <label for="email" class="add-teacher__label">Email</label>
-          <input type="email" id="email" name="email" class="add-teacher__input">
+          <input type="email" id="email" name="email" value="fjsdfs@gmail.com" class="add-teacher__input">
         </div>
 
         <div class="add-teacher__item form__item add-teacher__item-sizing">
           <label for="phone" class="add-teacher__label">Phone</label>
-          <input type="tel" name="phone" id="phone" class="add-teacher__input">
+          <input type="tel" name="phone" id="phone" value="0783584480" class="add-teacher__input">
+        </div>
+        <div class="add-teacher__item form__item add-teacher__item-sizing">
+          <label for="pictureURL" class="add-teacher__label">picture URL</label>
+          <input type="text" name="pictureURL" id="pictureURL" value="https://randomuser.me/api/portraits/men/28.jpg"
+            class="add-teacher__input">
         </div>
 
         <div class="add-teacher__item form__item add-teacher__item-sizing">
           <label for="b_date" class="add-teacher__label">Birthday</label>
-          <input type="date" name="b_date" id="b_date" class="add-teacher__input">
+          <input type="date" name="b_date" id="b_date" value="2015-10-27" class="add-teacher__input">
         </div>
 
         <div class="add-teacher__item form__item add-teacher__item-sizing">
@@ -780,10 +711,7 @@
           </select>
         </div>
 
-        <div class="add-teacher__item form__item add-teacher__item-direction"> // here shoud be a photo input
-          <label class="add-teacher__label add-teacher__direction-label" for="color">Background color</label>
-          <input id="color" name="bg_color" type="color">
-        </div>
+
 
         <div class="add-teacher__item form__item add-teacher__item-direction">
           <label class="add-teacher__label add-teacher__direction-label" for="favorite">Favorite</label>
@@ -792,8 +720,10 @@
 
         <div class="add-teacher__item">
           <label class="add-teacher__label " for="notes">Notes (optional)</label>
-          <textarea class="add-teacher__input" name="notes" id="notes" rows="3"></textarea>
+          <textarea class="add-teacher__input" name="notes" id="notes"
+            rows="3"> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consectetur cupiditate tempora similique cumque dolores doloremque quas, officia quidem, dicta animi dignissimos veniam exercitationem rerum porro et quia, minus possimus optio?</textarea>
         </div>
+
 
         <button class="btn btn--md-sizing add-teacher__submit-btn">Add</button>
       </form>

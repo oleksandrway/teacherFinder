@@ -9,8 +9,6 @@ function removeErrorFeedback(form) {
 }
 
 function addErrorFeedback(errors, form) {
-  console.error(errors)
-
   errors.forEach((error) => {
     const errorMessage = error.errorMessage
     const inputName = error.inputName
@@ -31,6 +29,7 @@ function addErrorFeedback(errors, form) {
   )
 }
 function handleErrors(errors, form) {
+  console.warn(errors)
   removeErrorFeedback(form)
 
   addErrorFeedback(errors, form)

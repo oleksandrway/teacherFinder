@@ -1,12 +1,9 @@
 export const fields = [
   {
-    inputName: 'full_name',
+    inputName: 'firstName',
   },
   {
-    inputName: 'course',
-  },
-  {
-    inputName: 'country',
+    inputName: 'lastName',
   },
   {
     inputName: 'city',
@@ -18,20 +15,30 @@ export const fields = [
     inputName: 'phone',
   },
   {
+    inputName: 'pictureURL',
+  },
+  {
     inputName: 'b_date',
-  },
-  {
-    inputName: 'favorite',
-  },
-  {
-    inputName: 'notes',
   },
 
 ]
 
 export const fieldsValidationRules = [
   {
-    inputName: 'full_name',
+    inputName: 'firstName',
+    rules: [
+      {
+        ruleName: 'required',
+      },
+      {
+        ruleName: 'minLength',
+        value: 3,
+
+      },
+    ],
+  },
+  {
+    inputName: 'lastName',
     rules: [
       {
         ruleName: 'required',
@@ -74,6 +81,19 @@ export const fieldsValidationRules = [
       ruleName: 'phone',
 
     }],
+  },
+  {
+    inputName: 'pictureURL',
+    rules: [
+      {
+        ruleName: 'required',
+      },
+      {
+        ruleName: 'minLength',
+        value: 5,
+
+      },
+    ],
   },
   {
     inputName: 'b_date',

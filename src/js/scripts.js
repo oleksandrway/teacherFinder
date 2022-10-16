@@ -1,11 +1,23 @@
-import { View } from '@/js/mvc/view.js'
-import { Controller } from '@/js/mvc/controller.js'
-import { Model } from '@/js/mvc/model.js'
+import { ViewTopTeachers } from '@/js/mvcTopTeachers/viewTopTeachers.js'
+import { CreatingTeacherModal } from '@/js/creatingTeacherModal.js'
+import { ControllerTopTeachers } from '@/js/mvcTopTeachers/controllerTopTeachers.js'
+import { ModelTopTeachers } from '@/js/mvcTopTeachers/modelTopTeachers.js'
 import { handleError } from '@/js/helpers/handleError'
-import { createModal } from '@/defaultModal/defaultModal.js'
-import { formattedUsers as teachers } from '@/js/data/users-data.js'
+// import { formattedUsers as teachers } from '@/js/data/users-data.js'
+import { store } from '@/js/data/store.js'
 
-const view = new View({ teachersContainer: '.top-teachers', teachersListSelector: '#top-teachers-list', filtersInputSelectors: ['#age-range', '#region', '#sex', '#with-photo', '#favorites'], newTeacherFormSelector: '.add-teacher' })
-const model = new Model(teachers)
+const creatingTeacherModal = new CreatingTeacherModal()
 
-const controller = new Controller({ view, model, handleError })
+const viewTopTeachers = new ViewTopTeachers()
+const modelTopTeachers = new ModelTopTeachers(store)
+
+const controllerTopTeachers = new ControllerTopTeachers({ view: viewTopTeachers, model: modelTopTeachers, handleError })
+
+// creatingTeacherModal.hooksAddTeacher.on('teacherAdded', ({ teacherInfo }) => {
+//   ControllerTopTeachers.addTeacher(teacherInfo)
+// })
+
+// console.log(ControllerTopTeachers.ViewTopTeachers.hooksTopTeachers)
+// ControllerTopTeachers.ViewTopTeachers.hooksTopTeachers.on('teacherSelected', (teacherInfo) => {
+//   console.log('from Scripts file')
+// })

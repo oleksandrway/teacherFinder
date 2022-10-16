@@ -1,6 +1,6 @@
 function formatUsers(users) {
   let id = 0
-  return users.map((user) => {
+  const FormatedUsers = users.map((user) => {
     const formatedUser = {
       name: user.name,
       id: id++,
@@ -11,13 +11,14 @@ function formatUsers(users) {
       phone: user.phone,
       b_date: user.dob.date,
       gender: user.gender,
-      picture: user.picture.large,
-      favorite: false,
+      pictureURL: user.picture.large,
+      favorite: user.favorite ? user.favorite : false,
       notes: ' He is a good teacher',
     }
 
     return formatedUser
   })
+  return FormatedUsers
 }
 
 export { formatUsers }

@@ -1,7 +1,22 @@
 
-class Model {
-  constructor(teachers) {
-    this.teachers = teachers
+class ModelTopTeachers {
+  constructor(store) {
+    this.store = store
+    this.teachers = store.getTeachers()
+  }
+
+  changeTeacherFavoriteStatus({ teacherId }) {
+    this.store.hooksStore.emit('teacherFavoriteStatusChanged', null, { teacherId })
+    // teacher = this.teachers.find(teacher => teacher.id === id)
+  }
+
+  getTeacherById({ teacherId }) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const teacher = this.teachers.find(teacher => teacher.id === teacherId)
+        resolve(teacher)
+      }, 630)
+    })
   }
 
   getTeachers(filters) {
@@ -11,7 +26,7 @@ class Model {
           resolve(this.teachers)
         }
         else {
-          const filteredTeachers = this.filterTeachers(filters)
+          const filteredTeachers = this.getFilteredTeachers(filters)
           resolve(filteredTeachers)
         }
       }, 530)
@@ -20,7 +35,7 @@ class Model {
     )
   }
 
-  filterTeachers(filters) {
+  getFilteredTeachers(filters) {
     const filteredTeachers = this.teachers.filter((teacher) => {
       return this.checkTeacher(teacher, filters)
     })
@@ -33,12 +48,12 @@ class Model {
       switch (key) {
         case 'age':{
           const interval = filters[key].split('-')
-          if (teacher.dob.age < interval[0] || teacher.dob.age > interval[1])
+          if (teacher.age < interval[0] || teacher.age > interval[1])
             isteacherMached = false
           break }
 
         case 'country':
-          if (filters[key] !== teacher.location.country)
+          if (filters[key] !== teacher.country)
             isteacherMached = false
           break
 
@@ -51,6 +66,10 @@ class Model {
           if (!teacher.picture)
             isteacherMached = false
           break
+        case 'favorite':
+          if (!teacher.favorite)
+            isteacherMached = false
+          break
       }
 
       // doesn't have favorites yet
@@ -59,4 +78,4 @@ class Model {
   }
 }
 
-export { Model }
+export { ModelTopTeachers }

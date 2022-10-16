@@ -7,6 +7,7 @@
         display: flex;
         flex-direction: column;
         align-items: flex-start;
+        margin-right: 80px;
     }
 
     &__img {
@@ -83,10 +84,17 @@
         padding: 10px;
         flex-direction: column;
 
+        &__wrapper {
+            margin-right: 0;
+        }
+
         &__img {
             margin: 0 auto;
             width: 100%;
             height: auto;
+        }
+        &__favorite {
+            top: 20px;
         }
 
         &__email {

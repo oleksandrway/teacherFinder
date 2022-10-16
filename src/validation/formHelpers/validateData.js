@@ -36,7 +36,7 @@ const rulesInstructions = [
   {
     ruleName: 'phone',
     checkFunc: checkIfItIsPhone,
-    defaultErrorMessage: 'here should be a phone number',
+    defaultErrorMessage: 'format should be   0774366266',
   },
 
 ]

@@ -2,36 +2,27 @@ import { validateData } from './validateData'
 import { getDataFromForm } from './getDataFromForm'
 import { handleErrors } from './handleErrors'
 
-function addFormValidation(form, fields, fieldsValidationRules, handleData) {
-  let haveValidationError = false
+function validateForm(form, fields, fieldsValidationRules) {
+  const data = getDataFromForm(form, fields)
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault()
+  const errors = validateData(data, fieldsValidationRules)
+
+  if (errors.length === 0)
+  // form.reset()
+    return true
+
+  else
+    handleErrors(errors, form)
+
+  form.addEventListener('input', () => {
     const data = getDataFromForm(form, fields)
 
     const errors = validateData(data, fieldsValidationRules)
 
-    if (errors.length === 0) {
-      handleData(data)
-      // form.reset()
-      haveValidationError = false
-    }
-    else {
-      haveValidationError = true
-
-      handleErrors(errors, form)
-    }
+    handleErrors(errors, form)
   })
 
-  form.addEventListener('input', () => {
-    if (haveValidationError) {
-      const data = getDataFromForm(form, fields)
-
-      const errors = validateData(data, fieldsValidationRules)
-
-      handleErrors(errors, form)
-    }
-  })
+  return false
 }
 
-export { addFormValidation }
+export { validateForm }

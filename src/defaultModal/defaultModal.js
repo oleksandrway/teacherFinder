@@ -1,30 +1,36 @@
 
 import './defaultModal.scss'
 
-function createModal({ openBtnSelector, preContentSelector }) {
-  const preContent = document.querySelector(preContentSelector)
-  let content
-  if (!preContent || typeof preContent === 'string') {
-    console.warn('you should pass a class of  element in function openModal')
-    content = document.createElement('div')
-    content.classList.add('errorMessage')
-    content.innerText = 'not found'
-  }
-  else {
-    content = preContent
-    content.removeAttribute('hidden')
-  }
+function bodyLock() {
+  const lockPaddingValue = `${window.innerWidth - document.querySelector('body').offsetWidth}px`
+  document.body.style.paddingRight = lockPaddingValue
+  document.body.classList.add('no-scroll')
+}
 
+function bodyUnlock() {
+  document.body.classList.remove('no-scroll')
+  document.body.style.paddingRight = ''
+}
+
+function openModal({ content, transition }) {
+  bodyLock()
   const defaultOverlay = document.createElement('div')
-  defaultOverlay.className = 'defaultOverlay '
+  defaultOverlay.className = 'defaultOverlay defaultOverlay--active'
 
   function hideModal() {
     defaultOverlay.classList.remove('defaultOverlay--active')
-    document.body.classList.remove('no-scroll')
+    setTimeout(() => {
+      bodyUnlock()
+      defaultOverlay.remove()
+    }, transition)
   }
 
   const defaultModal = document.createElement('div')
   defaultModal.className = 'defaultModal'
+
+  setTimeout(() => {
+    defaultModal.classList.add('defaultModal--active')
+  }, 1)
 
   const modalClose = document.createElement('div')
 
@@ -52,12 +58,12 @@ function createModal({ openBtnSelector, preContentSelector }) {
 
   document.body.appendChild(defaultOverlay)
 
-  const openBtn = document.querySelector(openBtnSelector)
+  // const openBtn = document.querySelector(openBtnSelector)
 
-  openBtn.addEventListener('click', () => {
-    defaultOverlay.classList.add('defaultOverlay--active')
-    document.body.classList.add('no-scroll')
-  })
+  // openBtn.addEventListener('click', () => {
+  //   defaultOverlay.classList.add('defaultOverlay--active')
+  //   document.body.classList.add('no-scroll')
+  // })
 }
 
-export { createModal }
+export { openModal }
