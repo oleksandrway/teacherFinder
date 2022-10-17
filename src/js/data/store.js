@@ -21,9 +21,15 @@ class Store {
   }
 
   clearFavorites() {
-    for (let i = 0; i < this.teachers.length; i++)
-      this.teachers[i].favorite = false
-    this.hooksStore.emit('teachersChanged')
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        for (let i = 0; i < this.teachers.length; i++)
+          this.teachers[i].favorite = false
+        this.hooksStore.emit('teachersChanged')
+
+        resolve('done')
+      }, 330)
+    })
   }
 
   changeTeacherFavoriteStatus({ teacherId }) {
@@ -40,7 +46,26 @@ class Store {
   }
 
   getTeachers() {
-    return this.teachers
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(this.teachers)
+      }, 630)
+    })
+  }
+
+  getTeacherById({ teacherId }) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const teacher = this.teachers.find(teacher => teacher.id === teacherId)
+        resolve(teacher)
+      }, 630)
+    })
+  }
+
+  getFavoriteTeachers() {
+    return new Promise((resolve) => {
+      resolve(this.teachers.filter(teacher => teacher.favorite))
+    }, 630)
   }
 }
 

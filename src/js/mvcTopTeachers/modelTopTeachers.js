@@ -1,8 +1,7 @@
-
+import { calculateAge } from '@/js/helpers/calculateAge.js'
 class ModelTopTeachers {
   constructor(store) {
     this.store = store
-    this.teachers = store.getTeachers()
   }
 
   changeTeacherFavoriteStatus({ teacherId }) {
@@ -10,35 +9,24 @@ class ModelTopTeachers {
     // teacher = this.teachers.find(teacher => teacher.id === id)
   }
 
-  getTeacherById({ teacherId }) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const teacher = this.teachers.find(teacher => teacher.id === teacherId)
-        resolve(teacher)
-      }, 630)
-    })
+  async getTeacherById({ teacherId }) {
+    const teacher = await this.store.getTeacherById({ teacherId })
+    // const teacher = teachers.find(teacher => teacher.id === teacherId)
+    return teacher
   }
 
-  getTeachers(filters) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        if (!filters) {
-          resolve(this.teachers)
-        }
-        else {
-          const filteredTeachers = this.getFilteredTeachers(filters)
-          resolve(filteredTeachers)
-        }
-      }, 530)
-    },
-
-    )
+  async getTeachers(filters) {
+    if (!filters) { return await this.store.getTeachers() }
+    else {
+      const filteredTeachers = await this.getFilteredTeachers(filters)
+      return filteredTeachers
+    }
   }
 
-  getFilteredTeachers(filters) {
-    const filteredTeachers = this.teachers.filter((teacher) => {
-      return this.checkTeacher(teacher, filters)
-    })
+  async getFilteredTeachers(filters) {
+    const teachers = await this.store.getTeachers()
+    const filteredTeachers = teachers.filter(teacher => this.checkTeacher(teacher, filters))
+
     return filteredTeachers
   }
 
@@ -48,7 +36,8 @@ class ModelTopTeachers {
       switch (key) {
         case 'age':{
           const interval = filters[key].split('-')
-          if (teacher.age < interval[0] || teacher.age > interval[1])
+          const teacherAGe = calculateAge(teacher.b_date)
+          if (teacherAGe < interval[0] || teacherAGe > interval[1])
             isteacherMached = false
           break }
 

@@ -7,6 +7,8 @@ class ControllerTopTeachers {
     this.handleError = handleError
     this.filters = {}
 
+    this.renderStoredTeachers()
+
     this.view.hooksTopTeachers.on('filterChanged', ({ filterName, filterValue }) => {
       if (!filterValue)
         delete this.filters[filterName]
@@ -26,9 +28,6 @@ class ControllerTopTeachers {
     this.view.hooksTopTeachers.on('clearFavorite', () => {
       hooksStore.emit('clearFavorite')
     })
-
-    this.renderStoredTeachers()
-
     hooksStore.on('teachersChanged', () => {
       this.renderFilteredTeachers(this.filters)
     })
