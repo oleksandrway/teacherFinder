@@ -99,6 +99,13 @@
     position: relative;
     padding: 0 22px;
 
+    &:hover {
+        .teacher-item__img {
+            transform: scale(1.01);
+            border-color: #fc2508;
+        }
+    }
+
     &__favorite {
         z-index: 1;
         clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
@@ -122,10 +129,6 @@
         height: 200px !important;
         border: 4px solid #ff8878;
         transition: all 0.3s;
-
-        &:hover {
-            border-color: #fc2508;
-        }
     }
 
     &__non-img {
@@ -140,10 +143,6 @@
         border: 4px solid #ff8878;
         border-radius: 100%;
         transition: all 0.3s;
-
-        &:hover {
-            border-color: #fc2508;
-        }
     }
 
     &__name {

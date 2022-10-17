@@ -1,4 +1,5 @@
 import EventBus from 'js-event-bus'
+import { calculateAge } from '../helpers/calculateAge'
 import { users } from '@/js/data/users-data.js'
 import { formatUsers } from '@/js/helpers/formatUsers'
 
@@ -48,24 +49,28 @@ class Store {
   getTeachers() {
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve(this.teachers)
+        const teachers = JSON.parse(JSON.stringify(this.teachers)) // to make a copy of the array and add age property to teachers I pass not stored ones
+        for (let i = 0; i < teachers.length; i++)
+          teachers[i].age = calculateAge(teachers[i].b_date)
+
+        resolve(teachers)
+        // resolve(this.teachers)
       }, 630)
     })
   }
 
-  getTeacherById({ teacherId }) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const teacher = this.teachers.find(teacher => teacher.id === teacherId)
-        resolve(teacher)
-      }, 630)
-    })
+  async getTeacherById({ teacherId }) {
+    const teahcers = await this.getTeachers()
+    const teacher = teahcers.find(teacher => teacher.id === teacherId)
+    return teacher
   }
 
   getFavoriteTeachers() {
     return new Promise((resolve) => {
-      resolve(this.teachers.filter(teacher => teacher.favorite))
-    }, 630)
+      setTimeout(() => {
+        resolve(this.teachers.filter(teacher => teacher.favorite))
+      }, 630)
+    })
   }
 }
 

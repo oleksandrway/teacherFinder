@@ -1,5 +1,4 @@
 import EventBus from 'js-event-bus'
-import { calculateAge } from '../helpers/calculateAge'
 import { createELement } from '@/js/helpers/createElement'
 import { openModal } from '@/defaultModal/defaultModal.js'
 
@@ -40,7 +39,7 @@ class ViewTopTeachers {
       <div class="main-info__name">${teacher.name.first} ${teacher.name.last}</div>
       <div class="main-info__speciality">${teacher.course}</div>
       <div class="main-info__location">${teacher.city}, ${teacher.country}</div>
-      <div class="main-info__personal">${calculateAge(teacher.b_date)}, ${teacher.gender}</div>
+      <div class="main-info__personal">${teacher.age}, ${teacher.gender}</div>
       <div class="main-info__email">${teacher.email}</div>
       <div class="main-info__phone-number">071-488-9968</div>
     </div>`,

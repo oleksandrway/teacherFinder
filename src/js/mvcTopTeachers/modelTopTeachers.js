@@ -1,4 +1,3 @@
-import { calculateAge } from '@/js/helpers/calculateAge.js'
 class ModelTopTeachers {
   constructor(store) {
     this.store = store
@@ -36,8 +35,7 @@ class ModelTopTeachers {
       switch (key) {
         case 'age':{
           const interval = filters[key].split('-')
-          const teacherAGe = calculateAge(teacher.b_date)
-          if (teacherAGe < interval[0] || teacherAGe > interval[1])
+          if (teacher[key] < interval[0] || teacher[key] > interval[1])
             isteacherMached = false
           break }
 
@@ -60,8 +58,6 @@ class ModelTopTeachers {
             isteacherMached = false
           break
       }
-
-      // doesn't have favorites yet
     })
     return isteacherMached
   }

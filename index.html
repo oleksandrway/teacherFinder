@@ -337,7 +337,38 @@
   <section id="statistics" class="statistics container">
     <div class="title statistics__title">Statistics</div>
     <div id="table-teachers-wrapper" class="statistics-table statistics__table-item">
-
+      <table class="statistics-table">
+        <thead class="statistics-table__head">
+          <tr>
+            <td>
+              <button class="statistics-table__sorting-btn" data-name="full_name">
+                Name<img srcset="/down-arrow.png">
+              </button>
+            </td>
+            <td>
+              <button class="statistics-table__sorting-btn" data-name="course">
+                Speciality<img srcset="/down-arrow.png">
+              </button>
+            </td>
+            <td>
+              <button class="statistics-table__sorting-btn" data-name="age">
+                Age<img srcset="/down-arrow.png">
+              </button>
+            </td>
+            <td>
+              <button class="statistics-table__sorting-btn" data-name="gender">
+                Gender<img srcset="/down-arrow.png">
+              </button>
+            </td>
+            <td>
+              <button class="statistics-table__sorting-btn" data-name="country">
+                Country<img srcset="/down-arrow.png">
+              </button>
+            </td>
+          </tr>
+        </thead>
+        <tbody class="statistics-table__body"></tbody>
+      </table>
     </div>
 
     <div id="table-pupils-wrapper" class="statistics-table statistics__table-item">

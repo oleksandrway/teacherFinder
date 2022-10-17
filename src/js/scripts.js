@@ -1,4 +1,5 @@
-import { Favorites } from './favoritesList'
+import { Favorites } from '@/js/favoritesList'
+import { Statistics } from '@/js/statistics'
 import { ViewTopTeachers } from '@/js/mvcTopTeachers/viewTopTeachers.js'
 import { CreatingTeacherModal } from '@/js/creatingTeacherModal.js'
 import { ControllerTopTeachers } from '@/js/mvcTopTeachers/controllerTopTeachers.js'
@@ -15,6 +16,8 @@ const modelTopTeachers = new ModelTopTeachers(store)
 const controllerTopTeachers = new ControllerTopTeachers({ view: viewTopTeachers, model: modelTopTeachers, handleError })
 
 const favorites = new Favorites({ store })
+
+const statistics = new Statistics({ store })
 
 // creatingTeacherModal.hooksAddTeacher.on('teacherAdded', ({ teacherInfo }) => {
 //   ControllerTopTeachers.addTeacher(teacherInfo)
