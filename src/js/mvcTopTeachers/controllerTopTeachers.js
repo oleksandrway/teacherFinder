@@ -1,4 +1,5 @@
 import { hooksStore } from '@/js/data/store.js'
+import { hideWindowLoader, showWindowLoader } from '@/js/helpers/loaders.js'
 
 class ControllerTopTeachers {
   constructor({ view, model, handleError }) {
@@ -44,7 +45,7 @@ class ControllerTopTeachers {
 
   async openTeacherInfoModal({ teacherId }) {
     try {
-      this.view.showWindowLoader()
+      showWindowLoader()
       const teacher = await this.model.getTeacherById({ teacherId })
       if (teacher)
         this.view.renderTeacherInfoModal(teacher)
@@ -53,7 +54,7 @@ class ControllerTopTeachers {
       this.handleError(error)
     }
     finally {
-      this.view.hideWindowLoader()
+      hideWindowLoader()
     }
   }
 

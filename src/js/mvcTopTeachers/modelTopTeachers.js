@@ -5,7 +5,6 @@ class ModelTopTeachers {
 
   changeTeacherFavoriteStatus({ teacherId }) {
     this.store.hooksStore.emit('teacherFavoriteStatusChanged', null, { teacherId })
-    // teacher = this.teachers.find(teacher => teacher.id === id)
   }
 
   async getTeacherById({ teacherId }) {

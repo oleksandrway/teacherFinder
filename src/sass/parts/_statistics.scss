@@ -22,62 +22,70 @@
     &::-webkit-scrollbar-thumb {
         background-color: $main-color;
         border-radius: 20px;
-
     }
 }
 
 .statistics-table {
     width: 100%;
     min-width: 650px;
+    min-height: 400px;
 
     thead {
         border-bottom: 1px solid black;
 
         tr {
             td {
-                cursor: pointer;
-                font-size: 20px;
-                padding: 15px 20px;
-                position: relative;
-                transition: all .3s;
-
-                img {
-                    position: absolute;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    right: 5px;
-                    transition: all .3s;
-                    opacity: 0;
-                    visibility: hidden;
+                &:first-child button {
+                    text-align: start;
                 }
+                button {
+                    cursor: pointer;
+                    font-size: 20px;
+                    // padding: 15px 20px;
+                    position: relative;
+                    transition: all 0.3s;
 
-                &::after {
-                    transition: all .3s;
-                    content: '';
-                    position: absolute;
-                    background-color: #000;
-                    left: 0;
-                    bottom: 0;
+                    padding: 15px 20px;
                     width: 100%;
-                    height: 3px;
-                    opacity: 0;
-                    visibility: hidden;
-                }
-                &:not(:first-child) {
-                    text-align: center;
-                }
-
-                &:hover {
-                    background-color: rgba(0, 0, 0, 0.041);
-
-                    &::after {
-                        opacity: 1;
-                        visibility: visible;
-                    }
 
                     img {
-                        opacity: 1;
-                        visibility: visible;
+                        position: absolute;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        right: 5px;
+                        transition: all 0.3s;
+                        opacity: 0;
+                        visibility: hidden;
+                    }
+
+                    &::after {
+                        transition: all 0.3s;
+                        content: "";
+                        position: absolute;
+                        background-color: #000;
+                        left: 0;
+                        bottom: 0;
+                        width: 100%;
+                        height: 3px;
+                        opacity: 0;
+                        visibility: hidden;
+                    }
+                    &:first-child {
+                        // text-align: start;
+                    }
+
+                    &:hover {
+                        background-color: rgba(0, 0, 0, 0.041);
+
+                        &::after {
+                            opacity: 1;
+                            visibility: visible;
+                        }
+
+                        img {
+                            opacity: 1;
+                            visibility: visible;
+                        }
                     }
                 }
             }

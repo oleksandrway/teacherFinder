@@ -1,10 +1,11 @@
 import EventBus from 'js-event-bus'
 import { createELement } from '@/js/helpers/createElement'
 import { openModal } from '@/defaultModal/defaultModal.js'
+import { hideLoader, showLoader } from '@/js/helpers/loaders.js'
 
 class ViewTopTeachers {
   constructor() {
-    this.teachersContainer = document.querySelector('.top-teachers')
+    // this.teachersContainer = document.querySelector('.top-teachers')
     this.teachersList = document.querySelector('#top-teachers-list')
     this.hooksTopTeachers = new EventBus()
     this.openModal = openModal
@@ -19,12 +20,11 @@ class ViewTopTeachers {
     })
   }
 
-  renderTeacherInfoModal(teacher) { // check if it's right  !!!
+  renderTeacherInfoModal(teacher) {
     const teacherInfoModal = createELement('div', {
       classList: 'teacher-info-modal',
     })
 
-    // <div class="main-info__favorite"></div>
     teacherInfoModal.innerHTML = `
     <div class="modal-header">
         <div class="teacher-info-modal__title">Add teacher</div>
@@ -34,15 +34,28 @@ class ViewTopTeachers {
     const mainInfo = createELement('div', {
       classList: 'main-info',
       innerHTML: `<img class="main-info__img"
-      srcset="${teacher.pictureURL}">
-    <div class="main-info__wrapper">
+      srcset="${teacher.pictureURL}">`,
+    })
+
+    const mainInfoText = createELement ('div', {
+      classList: 'main-info__wrapper',
+      innerHTML: `
       <div class="main-info__name">${teacher.name.first} ${teacher.name.last}</div>
       <div class="main-info__speciality">${teacher.course}</div>
       <div class="main-info__location">${teacher.city}, ${teacher.country}</div>
       <div class="main-info__personal">${teacher.age}, ${teacher.gender}</div>
       <div class="main-info__email">${teacher.email}</div>
       <div class="main-info__phone-number">071-488-9968</div>
-    </div>`,
+      `,
+    })
+
+    const deleteBtn = createELement('button', {
+      classList: 'btn btn--red mt-20px',
+      innerText: 'delete',
+    })
+
+    deleteBtn.addEventListener('click', () => {
+      console.log('delete')
     })
 
     const favoriteIcon = createELement('div', {
@@ -62,7 +75,9 @@ class ViewTopTeachers {
       innerHTML: `<div class="info-footer__about">${teacher.notes}</div>`,
     })
 
+    mainInfoText.insertAdjacentElement('beforeEnd', deleteBtn)
     mainInfo.insertAdjacentElement('afterBegin', favoriteIcon)
+    mainInfo.insertAdjacentElement('beforeEnd', mainInfoText)
     teacherInfoModal.insertAdjacentElement('beforeEnd', mainInfo)
     teacherInfoModal.insertAdjacentElement('beforeEnd', infoFooter)
 
@@ -96,7 +111,7 @@ class ViewTopTeachers {
 
     const teacherItemBtn = createELement('button', {
 
-      'classList': 'teacher-item',
+      'classList': 'teacher-item teacher-item__button',
       'data-id': teacher.id,
     })
 
@@ -125,42 +140,12 @@ class ViewTopTeachers {
     this.teachersList.appendChild(teacherItem)
   }
 
-  showWindowLoader() {
-    const loader = createELement('img', {
-      src: '/spinnerWhite.svg',
-      classList: 'window-loader__img',
-    })
-    const loaderContainer = createELement('div', {
-      classList: 'window-loader',
-    })
-    loaderContainer.appendChild(loader)
-    this.teachersContainer.appendChild(loaderContainer)
-  }
-
-  hideWindowLoader() {
-    const loader = this.teachersContainer.querySelector('.window-loader')
-    loader.remove()
-  }
-
   showTeachersLoader() {
-    this.teachersList.style.display = 'none'
-    const loaderContainer = createELement('div', {
-      classList: 'teachers-loader',
-    })
-
-    const loader = createELement('img', {
-      src: '/spinnerBlack.svg',
-      classList: 'teachers-loader__img',
-    })
-
-    loaderContainer.appendChild(loader)
-    this.teachersList.insertAdjacentElement('beforeBegin', loaderContainer)
+    showLoader(this.teachersList)
   }
 
   hideTeachersLoader() {
-    const loader = this.teachersContainer.querySelector('.teachers-loader')
-    loader.remove()
-    this.teachersList.style = ''
+    hideLoader(this.teachersList)
   }
 }
 

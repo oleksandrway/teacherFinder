@@ -37,6 +37,13 @@ li {
         text-transform: uppercase;
         font-weight: 600;
     }
+
+    &--red {
+        color: red;
+        &:hover {
+            background-color: red;
+        }
+    }
 }
 
 .divider {

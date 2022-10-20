@@ -1,11 +1,12 @@
 import EventBus from 'js-event-bus'
 import { calculateAge } from '../helpers/calculateAge'
-import { users } from '@/js/data/users-data.js'
-import { formatUsers } from '@/js/helpers/formatUsers'
+import { adapter } from '@/js/data/localStorageDataAdapter.js'
+
+const delay = ms => new Promise(resolve => setTimeout(() => resolve(), ms))
 
 class Store {
-  constructor(teachers) {
-    this.teachers = teachers
+  constructor(adapter) {
+    this.adapter = adapter
     this.hooksStore = new EventBus()
 
     this.hooksStore.on('clearFavorite', () => {
@@ -24,8 +25,12 @@ class Store {
   clearFavorites() {
     return new Promise((resolve) => {
       setTimeout(() => {
-        for (let i = 0; i < this.teachers.length; i++)
-          this.teachers[i].favorite = false
+        this.teachers = this.teachers.map((teacher) => {
+          return {
+            ...teacher,
+            favorite: false,
+          }
+        })
         this.hooksStore.emit('teachersChanged')
 
         resolve('done')
@@ -46,17 +51,21 @@ class Store {
     this.hooksStore.emit('teachersChanged')
   }
 
-  getTeachers() {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const teachers = JSON.parse(JSON.stringify(this.teachers)) // to make a copy of the array and add age property to teachers I pass not stored ones
-        for (let i = 0; i < teachers.length; i++)
-          teachers[i].age = calculateAge(teachers[i].b_date)
+  async getTeachers() {
+    // await delay(500)
 
-        resolve(teachers)
-        // resolve(this.teachers)
-      }, 630)
-    })
+    if (this.teachers) {
+      return this.teachers
+    }
+    else {
+      console.log('teachers from ')
+      const teachers = JSON.parse(JSON.stringify(await adapter.getTeachers())) // to make a copy of the array and add age property to teachers I pass not stored ones
+      for (let i = 0; i < teachers.length; i++)
+        teachers[i].age = calculateAge(teachers[i].b_date)
+
+      this.teachers = teachers
+      return teachers
+    }
   }
 
   async getTeacherById({ teacherId }) {
@@ -65,16 +74,13 @@ class Store {
     return teacher
   }
 
-  getFavoriteTeachers() {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(this.teachers.filter(teacher => teacher.favorite))
-      }, 630)
-    })
+  async getFavoriteTeachers() {
+    const teachers = await this.getTeachers()
+    const favoriteTeachers = teachers.filter(teacher => teacher.favorite)
+    return favoriteTeachers
   }
 }
 
-const formattedUsers = formatUsers(users)
-const store = new Store(formattedUsers)
+const store = new Store(adapter)
 const hooksStore = store.hooksStore
 export { store, hooksStore }

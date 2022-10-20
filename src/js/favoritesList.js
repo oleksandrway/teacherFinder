@@ -1,9 +1,11 @@
+import { hideLoader, showLoader } from '@/js/helpers/loaders.js'
 import { createELement } from '@/js/helpers/createElement'
+import { handleError } from '@/js/helpers/handleError.js'
 class Favorites {
   constructor({ store }) {
     this.store = store
     this.favoritesContainer = document.querySelector('.favorite-teachers-list')
-    // this.favoriteTeachers = this.store.getFavoriteTeachers()
+    // this.teachers = null,
 
     this.renderFavoritesList()
 
@@ -12,10 +14,24 @@ class Favorites {
     })
   }
 
+  async saveTeachers() {
+    this.teachers = await this.store.getTeachers()
+  }
+
   async renderFavoritesList() {
-    this.favoritesContainer.innerHTML = ''
-    const favoriteTeachers = await this.store.getFavoriteTeachers()
-    favoriteTeachers.forEach(teacher => this.renderFavoriteTeacherItem(teacher))
+    showLoader(this.favoritesContainer)
+
+    try {
+      const favoriteTeachers = await this.store.getFavoriteTeachers()
+      this.favoritesContainer.innerHTML = ''
+      favoriteTeachers.forEach(teacher => this.renderFavoriteTeacherItem(teacher))
+    }
+    catch (error) {
+      handleError(error)
+    }
+    finally {
+      hideLoader(this.favoritesContainer)
+    }
   }
 
   renderFavoriteTeacherItem(teacher) {

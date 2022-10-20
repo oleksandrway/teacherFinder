@@ -1,3 +1,5 @@
+import { hideLoader, showLoader } from '@/js/helpers/loaders.js'
+import { handleError } from '@/js/helpers/handleError.js'
 
 class Statistics {
   constructor({ store }) {
@@ -7,6 +9,10 @@ class Statistics {
 
     this.initSorting({ sortingBtns: this.sortingBtns })
     this.renderStoredTeachers()
+
+    this.store.hooksStore.on('teachersChanged', () => {
+      this.renderStoredTeachers()
+    })
   }
 
   async initSorting({ sortingBtns }) {
@@ -42,8 +48,18 @@ class Statistics {
   }
 
   async renderStoredTeachers() {
-    const teachers = await this.store.getTeachers()
-    this.renderStatisticList({ teachers })
+    showLoader(this.statisticsContainer)
+
+    try {
+      const teachers = await this.store.getTeachers()
+      this.renderStatisticList({ teachers })
+    }
+    catch (error) {
+      handleError(error)
+    }
+    finally {
+      hideLoader(this.statisticsContainer)
+    }
   }
 
   async renderStatisticList({ teachers }) {
