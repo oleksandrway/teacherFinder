@@ -5,11 +5,18 @@ class Favorites {
   constructor({ store }) {
     this.store = store
     this.favoritesContainer = document.querySelector('.favorite-teachers-list')
-    // this.teachers = null,
 
     this.renderFavoritesList()
 
     this.store.hooksStore.on('teachersChanged', () => {
+      this.renderFavoritesList()
+    })
+
+    this.store.hooksStore.on('teacherDeleted', () => {
+      this.renderFavoritesList()
+    })
+
+    this.store.hooksStore.on('favoritesChanged', () => {
       this.renderFavoritesList()
     })
   }

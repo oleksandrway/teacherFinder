@@ -12,18 +12,19 @@ function bodyUnlock() {
   document.body.style.paddingRight = ''
 }
 
-function openModal({ content, transition }) {
+function hideModal(transition) {
+  const defaultOverlay = document.querySelector('.defaultOverlay')
+  defaultOverlay.classList.remove('defaultOverlay--active')
+  setTimeout(() => {
+    bodyUnlock()
+    defaultOverlay.remove()
+  }, transition)
+}
+
+function openModal({ content, title, transition }) {
   bodyLock()
   const defaultOverlay = document.createElement('div')
   defaultOverlay.className = 'defaultOverlay defaultOverlay--active'
-
-  function hideModal() {
-    defaultOverlay.classList.remove('defaultOverlay--active')
-    setTimeout(() => {
-      bodyUnlock()
-      defaultOverlay.remove()
-    }, transition)
-  }
 
   const defaultModal = document.createElement('div')
   defaultModal.className = 'defaultModal'
@@ -41,19 +42,24 @@ function openModal({ content, transition }) {
   modalClose.append(span1)
   modalClose.append(span2)
 
+  const modalHeader = document.createElement('div')
+  modalHeader.className = 'modal-header'
+  modalHeader.innerText = title
+
   defaultOverlay.append(defaultModal)
+  defaultModal.append(modalHeader)
   defaultModal.append(modalClose)
   defaultModal.append(content)
 
-  modalClose.addEventListener('click', hideModal)
+  modalClose.addEventListener('click', () => hideModal(transition))
 
   defaultOverlay.addEventListener('click', (e) => {
     if (e.target === defaultOverlay)
-      hideModal()
+      hideModal(transition)
   })
   document.addEventListener('keydown', (e) => {
     if (e.code === 'Escape')
-      hideModal()
+      hideModal(transition)
   })
 
   document.body.appendChild(defaultOverlay)
@@ -66,4 +72,4 @@ function openModal({ content, transition }) {
   // })
 }
 
-export { openModal }
+export { openModal, hideModal }

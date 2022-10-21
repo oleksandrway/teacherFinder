@@ -13,19 +13,41 @@
 .nav-links {
     display: flex;
     &__item {
+        text-align: center;
         padding: 15px 0;
         flex-grow: 1;
-        text-align: left;
+        // text-align: left;
         font-weight: 600;
         cursor: pointer;
         font-size: 22px;
         color: #f75c49;
+        position: relative;
+
+        &:before {
+            content: "";
+            transition: all 0.3s;
+            position: absolute;
+            display: block;
+            bottom: 6px;
+            left: 50%;
+            transform: translate(-50%);
+
+            width: 0;
+            height: 3px;
+            border-radius: 0.2rem;
+            background-color: #f75c49;
+        }
+
         &:hover {
             color: #eb371f;
+
+            &:before {
+                width: 40px;
+            }
         }
     }
 }
-@media(max-width:991px) {
+@media (max-width: 991px) {
     .btns-wrapper {
         grid-template-columns: 1fr;
         &__btn {
@@ -39,7 +61,7 @@
         }
     }
 }
-@media(max-width:575px) {
+@media (max-width: 575px) {
     .nav-links {
         flex-direction: column;
     }

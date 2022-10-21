@@ -6,9 +6,12 @@ import { ControllerTopTeachers } from '@/js/mvcTopTeachers/controllerTopTeachers
 import { ModelTopTeachers } from '@/js/mvcTopTeachers/modelTopTeachers.js'
 import { handleError } from '@/js/helpers/handleError'
 // import { formattedUsers as teachers } from '@/js/data/users-data.js'
-import { store } from '@/js/data/store.js'
+import { Store } from '@/js/data/store.js'
+import { adapter } from '@/js/data/localStorageDataAdapter.js'
 
-const creatingTeacherModal = new CreatingTeacherModal()
+const store = new Store(adapter)
+
+const creatingTeacherModal = new CreatingTeacherModal(store)
 
 const viewTopTeachers = new ViewTopTeachers()
 const modelTopTeachers = new ModelTopTeachers(store)

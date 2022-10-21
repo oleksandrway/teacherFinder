@@ -3,14 +3,21 @@ class ModelTopTeachers {
     this.store = store
   }
 
-  changeTeacherFavoriteStatus({ teacherId }) {
-    this.store.hooksStore.emit('teacherFavoriteStatusChanged', null, { teacherId })
+  toggleTeacherFavoriteStatus({ teacherId }) {
+    this.store.toggleTeacherFavoriteStatus({ teacherId })
   }
 
   async getTeacherById({ teacherId }) {
     const teacher = await this.store.getTeacherById({ teacherId })
-    // const teacher = teachers.find(teacher => teacher.id === teacherId)
     return teacher
+  }
+
+  async deleteItem({ teacherId }) {
+    this.store.deleteItem({ teacherId })
+  }
+
+  async clearFavorites() {
+    this.store.clearFavorites()
   }
 
   async getTeachers(filters) {

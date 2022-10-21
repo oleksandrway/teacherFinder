@@ -1,26 +1,34 @@
 // // validation
 
 import '@/validation/style.scss'
-// import EventBus from 'js-event-bus'
-import { hooksStore } from '@/js/data/store.js'
 
 import { formatTeacherInfo } from '@/js/helpers/formatTeacherInfo'
 import { fields, fieldsValidationRules } from '@/validation/data/post-form'
 import { validateForm } from '@/validation/formHelpers/addFormValidation'
-import { openModal } from '@/defaultModal/defaultModal.js'
+import { hideModal, openModal } from '@/defaultModal/defaultModal.js'
+import { hideLoader, showLoader } from '@/js/helpers/loaders.js'
 
 class CreatingTeacherModal {
-  constructor() {
-    // this.hooksAddTeacher = new EventBus()
-
+  constructor(store) {
+    this.store = store
     this.creatingTeacherModalBtn = document.querySelector('.open-modal-btn')
     this.creatingTeacherModalContent = document.querySelector('.modal-add-teacher')
     this.openModal = openModal
     this.newTeacherForm = document.querySelector('#add-teacher')
+    // this.submitBtn = document.qs
 
+    // showLoader(this.creatingTeacherModalContent)
     this.creatingTeacherModalBtn.addEventListener('click', () => {
-      this.openModal({ content: this.creatingTeacherModalContent, transition: 300 })
+      this.openModal({ content: this.creatingTeacherModalContent, title: 'Add teacher', transition: 300 })
     })
+
+    this.store.hooksStore.on('teachersChanged', () => {
+      hideModal(300)
+      setTimeout(() => {
+        hideLoader(this.creatingTeacherModalContent)
+      }, 300)
+    })
+
     this.initForm(this.newTeacherForm)
   }
 
@@ -33,20 +41,11 @@ class CreatingTeacherModal {
         const formData = new FormData(e.target)
         const data = Object.fromEntries(formData)
         const teacherInfo = formatTeacherInfo(data)
-        console.log(teacherInfo)
-        hooksStore.emit('teacherAdded', null, { teacherInfo })
+        this.store.addTeacher({ teacherInfo })
+        showLoader(this.creatingTeacherModalContent)
       }
     })
   }
 }
-// validation
-// addFormValidation(this.newTeacherForm, fields, fieldsValidationRules, (teacherInfo) => {
-//   this.hooksTopTeachers.emit('newTeacherAdded', null, { teacherInfo: formatTeacherInfo(teacherInfo) })
-// },
-// )
-
-// this.view.hooksTopTeachers.on('newTeacherAdded', ({ teacherInfo }) => {
-//   console.log('newTeacher', teacherInfo)
-// })
 
 export { CreatingTeacherModal }

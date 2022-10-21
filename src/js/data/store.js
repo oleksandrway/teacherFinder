@@ -1,76 +1,68 @@
+
 import EventBus from 'js-event-bus'
 import { calculateAge } from '../helpers/calculateAge'
-import { adapter } from '@/js/data/localStorageDataAdapter.js'
-
-const delay = ms => new Promise(resolve => setTimeout(() => resolve(), ms))
+import { handleError } from '@/js/helpers/handleError.js'
 
 class Store {
   constructor(adapter) {
     this.adapter = adapter
     this.hooksStore = new EventBus()
-
-    this.hooksStore.on('clearFavorite', () => {
-      this.clearFavorites()
-    })
-
-    this.hooksStore.on('teacherAdded', ({ teacherInfo }) => {
-      this.addTeacher({ teacherInfo })
-    })
-
-    this.hooksStore.on('teacherFavoriteStatusChanged', ({ teacherId }) => {
-      this.changeTeacherFavoriteStatus({ teacherId })
-    })
+    this.teachers = null
   }
 
-  clearFavorites() {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        this.teachers = this.teachers.map((teacher) => {
-          return {
-            ...teacher,
-            favorite: false,
-          }
-        })
-        this.hooksStore.emit('teachersChanged')
-
-        resolve('done')
-      }, 330)
-    })
+  async clearFavorites() {
+    try {
+      console.log('clear')
+      this.teachers = await this.adapter.clearFavorites()
+      this.hooksStore.emit('favoritesChanged')
+    }
+    catch (error) {
+      handleError(error)
+    }
   }
 
-  changeTeacherFavoriteStatus({ teacherId }) {
-    const teacher = this.teachers.find(teacher => teacher.id === teacherId)
-    teacher.favorite = !teacher.favorite
-    this.hooksStore.emit('teachersChanged')
+  async deleteItem({ teacherId }) {
+    this.teachers = await this.adapter.deleteItem({ teacherId })
+    this.hooksStore.emit('teacherDeleted')
   }
 
-  addTeacher({ teacherInfo }) {
-    const teacher = teacherInfo
-    teacher.id = this.teachers.length
-    this.teachers.push(teacherInfo)
+  async toggleTeacherFavoriteStatus({ teacherId }) {
+    this.teachers = await this.adapter.toggleTeacherFavoriteStatus({ teacherId })
+    this.hooksStore.emit('favoritesChanged')
+  }
+
+  async addTeacher({ teacherInfo }) {
+    this.teachers = await this.adapter.addTeacher({ teacherInfo })
     this.hooksStore.emit('teachersChanged')
   }
 
   async getTeachers() {
-    // await delay(500)
-
     if (this.teachers) {
       return this.teachers
     }
     else {
-      console.log('teachers from ')
-      const teachers = JSON.parse(JSON.stringify(await adapter.getTeachers())) // to make a copy of the array and add age property to teachers I pass not stored ones
-      for (let i = 0; i < teachers.length; i++)
-        teachers[i].age = calculateAge(teachers[i].b_date)
+      try {
+        let teachers = await this.adapter.getTeachers()
 
-      this.teachers = teachers
-      return teachers
+        teachers = teachers.map((teacher) => {
+          return {
+            ...teacher,
+            age: calculateAge(teacher.b_date),
+          }
+        })
+
+        this.teachers = teachers
+        return teachers
+      }
+      catch (error) {
+        handleError(error)
+      }
     }
   }
 
   async getTeacherById({ teacherId }) {
-    const teahcers = await this.getTeachers()
-    const teacher = teahcers.find(teacher => teacher.id === teacherId)
+    const teachers = await this.getTeachers()
+    const teacher = teachers.find(teacher => teacher.id === teacherId)
     return teacher
   }
 
@@ -81,6 +73,4 @@ class Store {
   }
 }
 
-const store = new Store(adapter)
-const hooksStore = store.hooksStore
-export { store, hooksStore }
+export { Store }

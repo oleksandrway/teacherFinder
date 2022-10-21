@@ -1,14 +1,15 @@
 import EventBus from 'js-event-bus'
 import { createELement } from '@/js/helpers/createElement'
-import { openModal } from '@/defaultModal/defaultModal.js'
+import { hideModal, openModal } from '@/defaultModal/defaultModal.js'
 import { hideLoader, showLoader } from '@/js/helpers/loaders.js'
 
 class ViewTopTeachers {
   constructor() {
-    // this.teachersContainer = document.querySelector('.top-teachers')
+    this.teachersContent = document.querySelector('.top-teachers__content')
     this.teachersList = document.querySelector('#top-teachers-list')
     this.hooksTopTeachers = new EventBus()
     this.openModal = openModal
+    // this.favoriteCounterElement = document.querySelector('.favorite-quantity__title')
     this.clearFavoriteBtn = document.querySelector('.favorite-quantity__btn')
 
     // top-teachers filters
@@ -16,21 +17,25 @@ class ViewTopTeachers {
     this.addFilterListeners(this.filtersInputs)
 
     this.clearFavoriteBtn.addEventListener('click', () => {
-      this.hooksTopTeachers.emit('clearFavorite')
+      this.hooksTopTeachers.emit('clearFavorites')
     })
   }
+
+  // renderFavoriteCounter({ favoriteQuantity }) {
+  //   this.favoriteCounterElement.innerText = `quantity of favorite teachers ${favoriteQuantity}`
+  // }
 
   renderTeacherInfoModal(teacher) {
     const teacherInfoModal = createELement('div', {
       classList: 'teacher-info-modal',
     })
 
-    teacherInfoModal.innerHTML = `
-    <div class="modal-header">
-        <div class="teacher-info-modal__title">Add teacher</div>
-      </div>
+    // teacherInfoModal.innerHTML = `
+    // <div class="modal-header">
+    //     <div class="teacher-info-modal__title">Add teacher</div>
+    //   </div>
 
-    `
+    // `
     const mainInfo = createELement('div', {
       classList: 'main-info',
       innerHTML: `<img class="main-info__img"
@@ -55,7 +60,8 @@ class ViewTopTeachers {
     })
 
     deleteBtn.addEventListener('click', () => {
-      console.log('delete')
+      showLoader(teacherInfoModal)
+      this.hooksTopTeachers.emit('deleteItem', null, { teacherId: teacher.id })
     })
 
     const favoriteIcon = createELement('div', {
@@ -81,7 +87,11 @@ class ViewTopTeachers {
     teacherInfoModal.insertAdjacentElement('beforeEnd', mainInfo)
     teacherInfoModal.insertAdjacentElement('beforeEnd', infoFooter)
 
-    this.openModal({ content: teacherInfoModal, transition: 300 })
+    this.openModal({ content: teacherInfoModal, title: 'Add teacher', transition: 300 })
+  }
+
+  hideTeacherInfoModal() {
+    hideModal(300)
   }
 
   addFilterListeners(filtersInputs) {
@@ -141,11 +151,11 @@ class ViewTopTeachers {
   }
 
   showTeachersLoader() {
-    showLoader(this.teachersList)
+    showLoader(this.teachersContent)
   }
 
   hideTeachersLoader() {
-    hideLoader(this.teachersList)
+    hideLoader(this.teachersContent)
   }
 }
 

@@ -4,8 +4,10 @@ import { handleError } from '@/js/helpers/handleError.js'
 class Statistics {
   constructor({ store }) {
     this.store = store
-    this.statisticsContainer = document.querySelector('.statistics-table__body')
+    this.statisticsContent = document.querySelector('.statistics__content')
+    this.statisticsListContainer = document.querySelector('.statistics-table__body')
     this.sortingBtns = document.querySelectorAll('.statistics-table__sorting-btn')
+    this.activeSortingParameter = null
 
     this.initSorting({ sortingBtns: this.sortingBtns })
     this.renderStoredTeachers()
@@ -13,29 +15,39 @@ class Statistics {
     this.store.hooksStore.on('teachersChanged', () => {
       this.renderStoredTeachers()
     })
+    this.store.hooksStore.on('teacherDeleted', () => {
+      this.renderStoredTeachers()
+    })
   }
 
   async initSorting({ sortingBtns }) {
     sortingBtns.forEach((btn) => {
       btn.addEventListener('click', () => {
-        this.renderSortedTeachersList({ parameterName: btn.dataset.name })
+        const parameterName = btn.dataset.name
+
+        if (this.activeSortingParameter !== parameterName) {
+          this.activeSortingParameter = parameterName
+          this.renderSortedTeachersList({ parameterName })
+        }
       })
     })
   }
 
   async renderSortedTeachersList({ parameterName }) {
-    console.log(parameterName)
     const teachers = await this.store.getTeachers()
     const sortedTeachers = await this.sortTeachersByParameter({ teachers, parameterName })
-    console.log(sortedTeachers)
     this.renderStatisticList({ teachers: sortedTeachers })
   }
 
   async sortTeachersByParameter({ teachers, parameterName }) {
-    console.log(teachers, parameterName)
     return teachers.sort((a, b) => {
-      if ((typeof a[parameterName]) === 'string') {
-        console.log('string')
+      if (parameterName === 'name') {
+        if (a.name.first.toUpperCase() > b.name.first.toUpperCase())
+          return 1
+
+        return -1
+      }
+      else if ((typeof a[parameterName]) === 'string') {
         if (a[parameterName].toUpperCase() > b[parameterName].toUpperCase())
           return 1
 
@@ -48,7 +60,7 @@ class Statistics {
   }
 
   async renderStoredTeachers() {
-    showLoader(this.statisticsContainer)
+    showLoader(this.statisticsContent)
 
     try {
       const teachers = await this.store.getTeachers()
@@ -58,12 +70,12 @@ class Statistics {
       handleError(error)
     }
     finally {
-      hideLoader(this.statisticsContainer)
+      hideLoader(this.statisticsContent)
     }
   }
 
   async renderStatisticList({ teachers }) {
-    this.statisticsContainer.innerHTML = ''
+    this.statisticsListContainer.innerHTML = ''
     teachers.forEach(teacher => this.renderStatisticItem({ teacher }))
   }
 
@@ -78,7 +90,7 @@ class Statistics {
     <td >${teacher.country}</td>
     `
 
-    this.statisticsContainer.insertAdjacentElement('beforeEnd', statisticItem)
+    this.statisticsListContainer.insertAdjacentElement('beforeEnd', statisticItem)
   }
 }
 
