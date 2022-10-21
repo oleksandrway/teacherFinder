@@ -13,7 +13,7 @@ class Statistics {
     this.paginationContainer = document.querySelector('.statistics__pagination')
 
     this.currentPage = 1
-    this.teacherPerPage = 3
+    this.teacherPerPage = 5
 
     this.initSorting({ sortingBtns: this.sortingBtns })
     this.renderStoredTeachers()
@@ -33,6 +33,7 @@ class Statistics {
 
         if (this.activeSortingParameter !== parameterName) {
           this.activeSortingParameter = parameterName
+          this.currentPage = 1
           this.renderSortedTeachersList({ parameterName })
         }
       })

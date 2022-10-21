@@ -28,12 +28,13 @@
 .statistics-table {
     width: 100%;
     min-width: 650px;
-    min-height: 400px;
+    min-height: 300px;
 
     thead {
-        border-bottom: 1px solid black;
-
         tr {
+            border-bottom: 1px solid black;
+            display: grid;
+            grid-template-columns: 3fr 2fr 1fr 2fr 1fr;
             td {
                 &:first-child button {
                     text-align: start;
@@ -94,7 +95,12 @@
 
     tbody {
         tr {
+            // display: flex;
+            // width: 100%;
+            display: grid;
+            grid-template-columns: 3fr 2fr 1fr 2fr 1fr;
             td {
+                display: block;
                 padding: 8px;
                 &:not(:first-child) {
                     text-align: center;
