@@ -1,5 +1,7 @@
 import { hideLoader, showLoader } from '@/js/helpers/loaders.js'
 import { handleError } from '@/js/helpers/handleError.js'
+// import { createElement } from '@/js/helpers/createElement.js'
+import { createELement } from '@/js/helpers/createElement'
 
 class Statistics {
   constructor({ store }) {
@@ -8,6 +10,10 @@ class Statistics {
     this.statisticsListContainer = document.querySelector('.statistics-table__body')
     this.sortingBtns = document.querySelectorAll('.statistics-table__sorting-btn')
     this.activeSortingParameter = null
+    this.paginationContainer = document.querySelector('.statistics__pagination')
+
+    this.currentPage = 1
+    this.teacherPerPage = 3
 
     this.initSorting({ sortingBtns: this.sortingBtns })
     this.renderStoredTeachers()
@@ -75,8 +81,30 @@ class Statistics {
   }
 
   async renderStatisticList({ teachers }) {
+    const pagesNumber = Math.ceil(teachers.length / this.teacherPerPage)
+    const currentPageTeachers = teachers.slice((this.currentPage - 1) * this.teacherPerPage, this.currentPage * this.teacherPerPage)
+
+    this.paginationContainer.innerHTML = ''
+    for (let i = 0; i < pagesNumber; i++) {
+      const pageBtn = createELement('a', {
+        classList: 'pagination__item',
+        innerText: i + 1,
+      })
+      if (i === this.currentPage - 1)
+        pageBtn.classList.add('pagination__item--active')
+
+      pageBtn.addEventListener('click', () => {
+        if (this.currentPage !== i + 1) {
+          this.currentPage = i + 1
+          this.renderStatisticList({ teachers })
+        }
+      })
+
+      this.paginationContainer.append(pageBtn)
+    }
+
     this.statisticsListContainer.innerHTML = ''
-    teachers.forEach(teacher => this.renderStatisticItem({ teacher }))
+    currentPageTeachers.forEach(teacher => this.renderStatisticItem({ teacher }))
   }
 
   renderStatisticItem({ teacher }) {
