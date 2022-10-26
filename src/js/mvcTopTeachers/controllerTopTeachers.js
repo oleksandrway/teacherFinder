@@ -1,4 +1,3 @@
-import { hideWindowLoader, showWindowLoader } from '@/js/helpers/loaders.js'
 
 class ControllerTopTeachers {
   constructor({ view, model, handleError }) {

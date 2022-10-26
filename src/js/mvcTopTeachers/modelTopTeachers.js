@@ -36,36 +36,41 @@ class ModelTopTeachers {
   }
 
   checkTeacher(teacher, filters) {
-    let isteacherMached = true
+    let isTeacherMatched = true
     Object.keys(filters).forEach((key) => {
       switch (key) {
+        case 'search': {
+          const fullName = `${teacher.name.first}  ${teacher.name.last}`.toLowerCase().split(' ').join('')
+          const wantedString = filters[key].toLowerCase().split(' ').join('')
+          isTeacherMatched = fullName.includes(wantedString)
+          break }
         case 'age':{
           const interval = filters[key].split('-')
           if (teacher[key] < interval[0] || teacher[key] > interval[1])
-            isteacherMached = false
+            isTeacherMatched = false
           break }
 
         case 'country':
           if (filters[key] !== teacher.country)
-            isteacherMached = false
+            isTeacherMatched = false
           break
 
         case 'sex':
           if (filters[key] !== teacher.gender)
-            isteacherMached = false
+            isTeacherMatched = false
           break
 
         case 'withPhoto':
           if (!teacher.picture)
-            isteacherMached = false
+            isTeacherMatched = false
           break
         case 'favorite':
           if (!teacher.favorite)
-            isteacherMached = false
+            isTeacherMatched = false
           break
       }
     })
-    return isteacherMached
+    return isTeacherMatched
   }
 }
 

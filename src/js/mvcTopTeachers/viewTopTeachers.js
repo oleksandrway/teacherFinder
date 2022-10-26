@@ -9,8 +9,9 @@ class ViewTopTeachers {
     this.teachersList = document.querySelector('#top-teachers-list')
     this.hooksTopTeachers = new EventBus()
     this.openModal = openModal
-    // this.favoriteCounterElement = document.querySelector('.favorite-quantity__title')
+    this.favoriteCounterElement = document.querySelector('.favorite-quantity__title')
     this.clearFavoriteBtn = document.querySelector('.favorite-quantity__btn')
+    this.searchForm = document.querySelector('.search-block')
 
     // top-teachers filters
     this.filtersInputs = ['#age-range', '#region', '#sex', '#with-photo', '#favorites'].map(selector => document.querySelector(selector))
@@ -19,23 +20,29 @@ class ViewTopTeachers {
     this.clearFavoriteBtn.addEventListener('click', () => {
       this.hooksTopTeachers.emit('clearFavorites')
     })
+
+    this.initSearchForm(this.searchForm)
   }
 
-  // renderFavoriteCounter({ favoriteQuantity }) {
-  //   this.favoriteCounterElement.innerText = `quantity of favorite teachers ${favoriteQuantity}`
-  // }
+  initSearchForm(form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault()
+      const formData = new FormData(e.target)
+      const data = Object.fromEntries(formData)
+
+      this.hooksTopTeachers.emit('filterChanged', null, { filterName: 'search', filterValue: data.search })
+    })
+  }
+
+  changeFavoriteCounter({ favoriteQuantity }) {
+    this.favoriteCounterElement.innerText = `quantity of favorite teachers ${favoriteQuantity}`
+  }
 
   renderTeacherInfoModal(teacher) {
     const teacherInfoModal = createELement('div', {
       classList: 'teacher-info-modal',
     })
 
-    // teacherInfoModal.innerHTML = `
-    // <div class="modal-header">
-    //     <div class="teacher-info-modal__title">Add teacher</div>
-    //   </div>
-
-    // `
     const mainInfo = createELement('div', {
       classList: 'main-info',
       innerHTML: `<img class="main-info__img"
@@ -111,6 +118,7 @@ class ViewTopTeachers {
 
   renderTeachersList(teachers) {
     this.teachersList.innerHTML = ''
+    this.changeFavoriteCounter({ favoriteQuantity: teachers.filter(teacher => teacher.favorite).length })
     teachers.forEach(teacher => this.renderTeacherItem(teacher))
   }
 

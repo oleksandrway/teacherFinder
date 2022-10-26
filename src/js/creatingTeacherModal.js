@@ -40,6 +40,7 @@ class CreatingTeacherModal {
       if (isValid) {
         const formData = new FormData(e.target)
         const data = Object.fromEntries(formData)
+        console.log(data)
         const teacherInfo = formatTeacherInfo(data)
         this.store.addTeacher({ teacherInfo })
         showLoader(this.creatingTeacherModalContent)

@@ -4,18 +4,6 @@
     max-width: 600px;
 }
 
-// .defaultModal .modal__close {
-//     top: 5px;
-
-//     span {
-//         background-color: #fff;
-//     }
-
-//     &:hover {
-//         background-color: rgba(red, 0.4);
-//     }
-// }
-
 .add-teacher {
     padding: 0 20px 20px 20px;
     justify-content: space-between;
@@ -49,6 +37,11 @@
         margin-top: 5px;
         width: 100%;
         padding: 5px;
+    }
+
+    &__textarea {
+        min-height: 150px;
+        resize: none;
     }
 
     &__submit-btn {
